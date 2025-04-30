@@ -9,13 +9,13 @@ import shellSort from "../utils/shellSort";
 import countingSort from "../utils/countingSort";
 
 const SortVisualizer = () => {
-  const [title, setTitle] = useState("Bubble Sort");
+  const [title, setTitle] = useState("Quick Sort");
   const [array, setArray] = useState([]);
   const [auxArray, setAuxArray] = useState([]);
-  const [arrayLength, setArrayLength] = useState(500);
+  const [arrayLength, setArrayLength] = useState(1000);
   const [highlightedIndices, setHighlightedIndices] = useState([-1, -1]);
   const [isSorting, setIsSorting] = useState(false);
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState("Bubble Sort");
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState("Quick Sort");
   const [isSorted, setIsSorted] = useState(false);
   const [swapCount, setSwapCount] = useState(0);
   const [sortTime, setSortTime] = useState(0);
@@ -201,7 +201,7 @@ const SortVisualizer = () => {
                 }`}
                 style={{
                   height: `${value / 1.5}%`,
-                  margin: arrayLength < 1000 ? "0 0.5px" : "0 0.1px",
+                  margin: "0 0.1px",
                 }}
               />
             ))}
