@@ -108,14 +108,9 @@ ASGI_APPLICATION = 'backend.asgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'AlgoDatabase', 
-        'USER': 'postgres',
-        'PASSWORD': 'Borderlands313',  # the one you set during install
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),  # Read from environment variable
+    )
 }
 
 
