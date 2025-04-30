@@ -7,6 +7,17 @@ const Navbar = () => {
 
   const isActive = (path) => location.pathname === path;
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const navLinks = [
+    { path: "/", name: "Home" },
+    { path: "/sort-visualizer", name: "Sorting" },
+    { path: "/fit-visualizer", name: "Curve Fitting" },
+    { path: "/pathfind-visualizer", name: "Path Finding" },
+  ];
+
   return (
     <nav className="bg-black border-b border-gray-800 text-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,83 +36,61 @@ const Navbar = () => {
             </Link>
           </div>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-1">
-            <Link
-              to="/"
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive("/") 
-                  ? "bg-purple-600 text-white shadow-[0_0_10px_#CA00B6]" 
-                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/sort-visualizer"
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive("/sort-visualizer") 
-                  ? "bg-purple-600 text-white shadow-[0_0_10px_#CA00B6]" 
-                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
-              }`}
-            >
-              Sorting
-            </Link>
-            <Link
-              to="/fit-visualizer"
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive("/fit-visualizer") 
-                  ? "bg-purple-600 text-white shadow-[0_0_10px_#CA00B6]" 
-                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
-              }`}
-            >
-              Curve Fitting
-            </Link>
-            <Link
-              to="/pathfind-visualizer"
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                isActive("/pathfind-visualizer") 
-                  ? "bg-purple-600 text-white shadow-[0_0_10px_#CA00B6]" 
-                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
-              }`}
-            >
-              Path Finding
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  isActive(link.path) 
+                    ? "bg-purple-600 text-white shadow-[0_0_10px_#CA00B6]" 
+                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
 
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={toggleMobileMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none transition-all"
+              aria-label="Toggle menu"
             >
+              {isMobileMenuOpen ? (
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
       </div>
 
-      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-gray-900/95 backdrop-blur-sm border-t border-gray-800`}>
+      {/* Mobile Navigation Menu */}
+      <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-gray-900/95 backdrop-blur-sm border-t border-gray-800 transition-all duration-300 ease-in-out`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
-          <Link
-            to="/"
-            className={`block px-4 py-3 rounded-lg text-base font-medium mx-2 transition-all ${
-              isActive("/") 
-                ? "bg-purple-600 text-white shadow-[0_0_10px_#CA00B6]" 
-                : "text-gray-300 hover:bg-gray-800 hover:text-white"
-            }`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Home
-          </Link>
-          <Link
-            to="/sort-visualizer"
-            className={`block px-4 py-3 rounded-lg text-base font-medium mx-2 transition-all ${
-              isActive("/sort-visualizer") 
-                ? "bg-purple-600 text-white shadow-[0_0_10px_#CA00B6]" 
-                : "text-gray-300 hover:bg-gray-800 hover:text-white"
-            }`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Sort Visualizer
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`block px-4 py-3 rounded-lg text-base font-medium mx-2 transition-all ${
+                isActive(link.path) 
+                  ? "bg-purple-600 text-white shadow-[0_0_10px_#CA00B6]" 
+                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
+              }`}
+              onClick={toggleMobileMenu}
+            >
+              {link.name}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>
