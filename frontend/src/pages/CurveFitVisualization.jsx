@@ -14,7 +14,7 @@ const CurveFitVisualization = () => {
   const [selectedFunction, setSelectedFunction] = useState("sin");
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8000/ws/fit/");
+    const ws = new WebSocket("wss://algorithmvisualizationbackend.onrender.com/ws/fit/");
     setSocket(ws);
 
     ws.onopen = () => {
