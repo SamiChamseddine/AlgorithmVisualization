@@ -251,7 +251,7 @@ const CurveFitVisualization = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-black p-4 rounded-xl shadow-lg border border-gray-800">
           {/* Function Selection */}
           <div className="flex flex-col gap-1">
-            <label className="text-gray-300 text-sm">Function Type:</label>
+            <label className="text-gray-300 text-sm">Points Generation:</label>
             <select
               className="bg-gray-800 text-white p-2 rounded-lg border border-gray-700 focus:ring-2 focus:ring-purple-500"
               value={selectedFunction}
