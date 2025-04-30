@@ -88,7 +88,6 @@ const MainPage = () => {
               <p className="text-lg text-gray-300 max-w-2xl mb-8 px-4 backdrop-blur-sm bg-gray-900/50 p-4 rounded-xl border border-gray-800">
                 {image.description}
               </p>
-              <p>{image.type}</p>
               <Link
                 to={getCurrentPath()}
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white py-3 px-6 rounded-lg shadow-lg transition-all hover:shadow-[0_0_15px_#CA00B6]"
