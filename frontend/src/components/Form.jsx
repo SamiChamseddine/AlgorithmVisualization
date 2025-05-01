@@ -34,6 +34,15 @@ function Form({ route, method }) {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-black text-gray-200 p-1">
+      <div className=" top-20 left-0 right-0 mx-auto w-full max-w-3xl px-4 z-20">
+        <blockquote className="text-center italic text-gray-300 text-sm md:text-base p-1 rounded-xl">
+          "The purpose of computing is insight, not numbers. But to gain
+          insight, we need visualization."
+          <footer className="mt-1 text-purple-400/80 not-italic text-xs md:text-sm">
+            — Richard Hamming
+          </footer>
+        </blockquote>
+      </div>
             <form onSubmit={handleSubmit} className="bg-black p-6 rounded-xl shadow-xl w-full max-w-sm border border-gray-800">
                 <h1 className="text-4xl font-extrabold text-center mb-6 bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text drop-shadow-[0_0_8px_#CA00B6]">
                     {name}
