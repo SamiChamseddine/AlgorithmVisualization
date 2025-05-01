@@ -55,6 +55,15 @@ const MainPage = () => {
   };
   return (
     <div className="flex flex-col items-center gap-1 p-1 bg-black h-screen text-gray-200">
+            <div className=" top-20 left-0 right-0 mx-auto w-full max-w-3xl px-4 z-20">
+        <blockquote className="text-center italic text-gray-300 text-sm md:text-base p-1 rounded-xl">
+          "The purpose of computing is insight, not numbers. But to gain
+          insight, we need visualization."
+          <footer className="mt-1 text-purple-400/80 not-italic text-xs md:text-sm">
+            — Richard Hamming
+          </footer>
+        </blockquote>
+      </div>
       <div className="relative flex flex-col items-center justify-center border border-gray-800 rounded-xl h-screen w-full max-w-7xl bg-gradient-to-r from-gray-900/50 to-gray-900/70 overflow-hidden shadow-xl">
         <div className="absolute inset-0">
           {images.map((image, index) => (
