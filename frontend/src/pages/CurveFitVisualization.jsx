@@ -100,10 +100,11 @@ const CurveFitVisualization = () => {
 
   const handleStartFitting = () => {
     if (dataset.x.length === 0) return;
-    if (degree>20){
-      alert("Polynomial Degree should be less than or equal to 20");
+    if (!(degree>=1 && degree<=20)){
+      alert("Polynomial degree should be <= 20 or >=1");
       return;
     }
+
     setIsFitting(true);
 
     if (socket && socket.readyState === WebSocket.OPEN) {
@@ -272,18 +273,18 @@ const CurveFitVisualization = () => {
           </div>
 
           {/* Polynomial Degree */}
-          <div className="flex flex-col gap-2 w-full max-w-xs mx-auto sm:max-w-sm">
-            <label className="text-gray-300 text-sm sm:text-base">
-              Polynomial Degree:
-            </label>
+          <div className="flex flex-col gap-1">
+            <label className="text-gray-300 text-sm">Polynomial Degree:</label>
             <input
               type="number"
+              min="1"
+              max="10"
               value={degree}
               onChange={(e) => {
                 const value = parseInt(e.target.value);
                 setDegree(value);
               }}
-              className="bg-gray-800 text-white px-4 py-3 text-base rounded-lg border border-gray-700 focus:ring-2 focus:ring-purple-500"
+              className="bg-gray-800 text-white p-2 rounded-lg border border-gray-700 focus:ring-2 focus:ring-purple-500"
               disabled={isFitting}
             />
           </div>
