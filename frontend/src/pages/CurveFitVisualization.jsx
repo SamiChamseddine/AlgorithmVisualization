@@ -14,7 +14,9 @@ const CurveFitVisualization = () => {
   const [selectedFunction, setSelectedFunction] = useState("sin");
 
   useEffect(() => {
-    const ws = new WebSocket("wss://algorithmvisualizationbackend.onrender.com/ws/fit/");
+    const ws = new WebSocket(
+      "wss://algorithmvisualizationbackend.onrender.com/ws/fit/"
+    );
     setSocket(ws);
 
     ws.onopen = () => {
@@ -98,7 +100,10 @@ const CurveFitVisualization = () => {
 
   const handleStartFitting = () => {
     if (dataset.x.length === 0) return;
-
+    if (degree>20){
+      alert("Polynomial Degree should be less than or equal to 20");
+      return;
+    }
     setIsFitting(true);
 
     if (socket && socket.readyState === WebSocket.OPEN) {
@@ -251,7 +256,7 @@ const CurveFitVisualization = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-black p-4 rounded-xl shadow-lg border border-gray-800">
           {/* Function Selection */}
           <div className="flex flex-col gap-1">
-            <label className="text-gray-300 text-sm">Points Generation:</label>
+            <label className="text-gray-300 text-sm">Function Type:</label>
             <select
               className="bg-gray-800 text-white p-2 rounded-lg border border-gray-700 focus:ring-2 focus:ring-purple-500"
               value={selectedFunction}
@@ -267,20 +272,18 @@ const CurveFitVisualization = () => {
           </div>
 
           {/* Polynomial Degree */}
-          <div className="flex flex-col gap-1">
-            <label className="text-gray-300 text-sm">Polynomial Degree:</label>
+          <div className="flex flex-col gap-2 w-full max-w-xs mx-auto sm:max-w-sm">
+            <label className="text-gray-300 text-sm sm:text-base">
+              Polynomial Degree:
+            </label>
             <input
               type="number"
-              min="1"
-              max="10"
               value={degree}
               onChange={(e) => {
                 const value = parseInt(e.target.value);
-                if (!isNaN(value) && value >= 1 && value <= 10) {
-                  setDegree(value);
-                }
+                setDegree(value);
               }}
-              className="bg-gray-800 text-white p-2 rounded-lg border border-gray-700 focus:ring-2 focus:ring-purple-500"
+              className="bg-gray-800 text-white px-4 py-3 text-base rounded-lg border border-gray-700 focus:ring-2 focus:ring-purple-500"
               disabled={isFitting}
             />
           </div>
