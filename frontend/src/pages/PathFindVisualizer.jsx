@@ -844,7 +844,7 @@ const PathfindVisualizer = () => {
   const isTSPAlgorithm = algorithm === "farthest" || algorithm === "nearest";
 
   return (
-    <div className="flex flex-col items-center gap-6 p-3 bg-black  text-gray-200">
+    <div className="flex flex-col items-center gap-6 p-3 bg-black min-h-screen text-gray-200">
       <div className="text-center">
         <h3 className="text-4xl font-extrabold bg-gradient-to-r text-purple-500 bg-clip-text drop-shadow-[0_0_8px_#CA00B6] animate-pulse-slow">
           {" "}
