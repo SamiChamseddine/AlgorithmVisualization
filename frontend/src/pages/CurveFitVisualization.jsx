@@ -13,6 +13,14 @@ const CurveFitVisualization = () => {
   const [socket, setSocket] = useState(null);
   const [selectedFunction, setSelectedFunction] = useState("sin");
 
+  const FUNCTION_TYPES = [
+    { label: "Sinusoidal", value: "sin" },
+    { label: "Linear", value: "linear" },
+    { label: "Quadratic", value: "quadratic" },
+    { label: "Exponential", value: "exponential" },
+    { label: "Logarithmic", value: "logarithmic" },
+  ];
+
   useEffect(() => {
     const ws = new WebSocket(
       "wss://algorithmvisualizationbackend.onrender.com/ws/fit/"
@@ -21,11 +29,8 @@ const CurveFitVisualization = () => {
 
     ws.onopen = () => {
       console.log("WebSocket connection established.");
-      ws.send(
-        JSON.stringify({
-          action: "generate_dataset",
-        })
-      );
+      // Generate initial dataset with default function type
+      generateDataset(ws, selectedFunction);
     };
 
     ws.onmessage = (event) => {
@@ -88,19 +93,26 @@ const CurveFitVisualization = () => {
     };
   }, []);
 
-  const handleGenerateDataset = () => {
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.send(
+  const generateDataset = (ws, functionType) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(
         JSON.stringify({
           action: "generate_dataset",
+          function_type: functionType
         })
       );
     }
   };
 
+  const handleGenerateDataset = () => {
+    if (socket) {
+      generateDataset(socket, selectedFunction);
+    }
+  };
+
   const handleStartFitting = () => {
     if (dataset.x.length === 0) return;
-    if (!(degree>=1 && degree<=20)){
+    if (!(degree >= 1 && degree <= 20)) {
       alert("Polynomial degree should be <= 20 or >=1");
       return;
     }
@@ -118,22 +130,15 @@ const CurveFitVisualization = () => {
       );
     }
   };
-  const FUNCTION_TYPES = [
-    { label: "Sinusoidal", value: "sin" },
-    { label: "Linear", value: "linear" },
-    { label: "Quadratic", value: "quadratic" },
-    { label: "Exponential", value: "exponential" },
-    { label: "Logarithmic", value: "logarithmic" },
-  ];
+
   const handleFunctionChange = (e) => {
-    setSelectedFunction(e.target.value);
-    socket.send(
-      JSON.stringify({
-        action: "generate_dataset",
-        function_type: e.target.value,
-      })
-    );
+    const newFunctionType = e.target.value;
+    setSelectedFunction(newFunctionType);
+    if (socket) {
+      generateDataset(socket, newFunctionType);
+    }
   };
+
   return (
     <div className="flex flex-col items-center gap-1 p-1 bg-black min-h-screen text-gray-200">
       {/* Title Section */}
