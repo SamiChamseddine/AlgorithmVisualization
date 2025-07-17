@@ -23,7 +23,7 @@ const CurveFitVisualization = () => {
 
   useEffect(() => {
     const ws = new WebSocket(
-      "wss://algorithmvisualizationbackend.onrender.com/ws/fit/"
+      "wss://algorithmvisualization-bb9c.onrender.com/ws/fit/"
     );
     setSocket(ws);
 
